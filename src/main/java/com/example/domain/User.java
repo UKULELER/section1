@@ -1,22 +1,42 @@
 package com.example.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(name = "t_user")
 public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private int userId;
 
+    @Column(name = "user_name")
     private String userName;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "last_ip")
     private String lastIp;
 
+    @Column(name = "last_visit")
     private Date lastVisit;
+
+    public User() {}
 
     public User(int userId, String userName) {
         this.userId = userId;
         this.userName = userName;
+    }
+
+    public User(int userId, String userName, String password, String lastIp, Date lastVisit) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.lastIp = lastIp;
+        this.lastVisit = lastVisit;
     }
 
     public String getLastIp() {

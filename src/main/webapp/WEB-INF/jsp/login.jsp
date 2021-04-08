@@ -12,9 +12,11 @@
 <form action="<c:url value="/admin/loginCheck.html"/>" method="post">
     用户名：
     <input type="text" name="userName">
+    <font color="red"><span>${nameError}</span></font>
     <br>
     密 码：
     <input type="password" name="password">
+    <font color="red"><span>${passwordError}</span></font>
     <br>
     <input type="submit" value="登录"/>
     <input type="reset" value="重置"/>

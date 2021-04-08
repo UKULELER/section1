@@ -1,10 +1,12 @@
 package com.example.web;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,10 +32,21 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/loginCheck.html")
-    public ModelAndView loginCheck(HttpServletRequest request, LoginInfo loginInfo) {
-        boolean isValidUser =
-                userService.hasMatchUser(loginInfo.getUserName(),
-                        loginInfo.getPassword());
+    public ModelAndView loginCheck(HttpServletRequest request, @Valid LoginInfo loginInfo, BindingResult bindingResult) {
+        request.getSession().setAttribute("nameError", "");
+        request.getSession().setAttribute("passwordError", "");
+        if(bindingResult.hasErrors()){
+            FieldError nameError = bindingResult.getFieldError("userName");
+            FieldError passwordError = bindingResult.getFieldError("password");
+
+            if(nameError!=null) request.getSession().setAttribute("nameError", nameError.getDefaultMessage());
+            if(passwordError!=null) request.getSession().setAttribute("passwordError", passwordError.getDefaultMessage());
+
+            return new ModelAndView("login");
+        }
+
+        boolean isValidUser = userService.hasMatchUser(loginInfo.getUserName(),
+                loginInfo.getPassword());
         if (!isValidUser) {
             return new ModelAndView("login", "error", "用户名或密码错误。");
         } else {

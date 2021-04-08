@@ -12,26 +12,26 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">
     
-    <!-- 扫描类包，将标注Spring注解的类自动转化Bean，同时完成Bean的注入 -->
-    <context:component-scan base-package="com.example.dao"/>
-    <context:component-scan base-package="com.example.service"/>
-    
-    <!-- 配置数据源 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close" 
-		p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://localhost:3306/exampledb"
-		p:username="root"
-		p:password="exampledb20" /><!-- 请修改成你的数据库口令 -->
+<!--    &lt;!&ndash; 扫描类包，将标注Spring注解的类自动转化Bean，同时完成Bean的注入 &ndash;&gt;-->
+<!--    <context:component-scan base-package="com.example.dao"/>-->
+<!--    <context:component-scan base-package="com.example.service"/>-->
+<!--    -->
+<!--    &lt;!&ndash; 配置数据源 &ndash;&gt;-->
+<!--	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
+<!--		destroy-method="close" -->
+<!--		p:driverClassName="com.mysql.jdbc.Driver"-->
+<!--		p:url="jdbc:mysql://localhost:3306/exampledb"-->
+<!--		p:username="root"-->
+<!--		p:password="root" />-->
 
-	<!-- 配置Jdbc模板  -->
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
-		p:dataSource-ref="dataSource" />
-		
-	<!-- 配置事务管理器 -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-		p:dataSource-ref="dataSource" />
+<!--	&lt;!&ndash; 配置Jdbc模板  &ndash;&gt;-->
+<!--	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"-->
+<!--		p:dataSource-ref="dataSource" />-->
+<!--		-->
+<!--	&lt;!&ndash; 配置事务管理器 &ndash;&gt;-->
+<!--	<bean id="transactionManager"-->
+<!--		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"-->
+<!--		p:dataSource-ref="dataSource" />-->
 		
 	<!-- 通过AOP配置提供事务增强，让service包下所有Bean的所有方法拥有事务 -->
 	<aop:config proxy-target-class="true">

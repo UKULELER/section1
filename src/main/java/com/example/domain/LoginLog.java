@@ -1,16 +1,34 @@
 package com.example.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(name = "t_login_log")
 public class LoginLog implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "login_log_id")
     private int loginLogId;
 
+    @Column(name = "user_id")
     private int userId;
 
+    @Column(name = "ip")
     private String ip;
 
+    @Column(name = "login_datetime")
     private Date loginDate;
+
+    public LoginLog() {}
+
+    public LoginLog(int loginLogId, int userId, String ip, Date loginDate) {
+        this.loginLogId = loginLogId;
+        this.userId = userId;
+        this.ip = ip;
+        this.loginDate = loginDate;
+    }
 
     public String getIp() {
         return ip;

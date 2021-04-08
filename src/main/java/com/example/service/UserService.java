@@ -1,36 +1,19 @@
 package com.example.service;
 
-import com.example.dao.LoginLogDao;
-import com.example.dao.UserDao;
-import com.example.domain.LoginLog;
 import com.example.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.web.LoginInfo;
+import org.springframework.web.servlet.ModelAndView;
 
-@Service
-public class UserService {
+import javax.servlet.http.HttpServletRequest;
 
-    @Autowired
-    private UserDao userDao;
+public interface UserService {
 
-    @Autowired
-    private LoginLogDao loginLogDao;
+//    public ModelAndView loginCheck(HttpServletRequest request, LoginInfo loginInfo);
 
-    public boolean hasMatchUser(String userName, String password) {
-        int matchCount = userDao.getMatchCount(userName, password);
-        return matchCount > 0;
-    }
+    public boolean hasMatchUser(String userName, String password);
 
-    public User findUserByUserName(String userName) {
-        return userDao.findUserByUserName(userName);
-    }
+    public User findUserByUserName(String userName);
 
-    public boolean saveLog(User user) {
-        LoginLog loginLog = new LoginLog();
-        loginLog.setUserId(user.getUserId());
-        loginLog.setIp(user.getLastIp());
-        loginLog.setLoginDate(user.getLastVisit());
-        loginLogDao.insertLoginLog(loginLog);
-        return true;
-    }
+    public boolean saveLog(User user);
+
 }
